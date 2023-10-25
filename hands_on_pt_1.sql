@@ -60,9 +60,9 @@ INSERT INTO employees
 	(username, income, supervisor_id, role_id, deleted, created, created_by) 
 VALUES
 	('Joãozinho', 100000.20, NULL, 1, false, NOW(), 1),
-	('Mariazinha', 7000.20, 3, 2, false, NOW(), 1),
-	('Yami Yugi ', 4000.20, 1, 3, false, NOW(), 1),
-	('Gohan', 2700.85, 2, 4, false, NOW(), 1),
+	('Mariazinha', 7000.20, 1, 2, false, NOW(), 1),
+	('Yami Yugi ', 4000.20, 2, 3, false, NOW(), 1),
+	('Gohan', 2700.85, 3, 4, false, NOW(), 1),
 	('Naruto', 750.00, 4, 5, false, NOW(), 1),
 	('Chaves ', 500.50, 4, 5, false, NOW(), 1)
 ;
@@ -72,3 +72,11 @@ SELECT * FROM roles;
 
 -- SELECT NA TABELA DE COLABORADORES
 SELECT * FROM employees;
+
+-- LISTAGEM DE COLABORADORES COM NOME E CARGO, JUNTAMENTE COM O NOME E CARGO DO SEU SUPERVISOR
+
+-- ATUALIZANDO O SALÁRIO DO COLABORADOR COM O MENOR SALÁRIO
+
+-- REMOVENDO O COLABORADOR COM CARGO DE ANALISTA - DELETED [?]
+
+-- DELETANDO O CARGO QUE NÃO TEM COLABORADORES VINCULADOS
