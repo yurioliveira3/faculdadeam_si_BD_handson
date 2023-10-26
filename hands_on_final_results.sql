@@ -34,7 +34,26 @@ WHERE
   )
 ;
 
+-- UTILIZANDO CTE
+WITH get_min(income) AS (
+	SELECT
+		min(mn_emp.income)
+	FROM
+		employees AS mn_emp
+)
+UPDATE
+	employees AS emp
+SET 
+ 	income = '751.00'
+FROM 
+	get_min AS min_inc 
+WHERE 
+	emp.income = min_inc.income
+;
+
 -- REMOVENDO O COLABORADOR COM CARGO DE ANALISTA - DELETED [?]
+-- * DICA - QUANDO TENTAMOS DELETAR HARD UM COLABORADOR ONDE EXISTEM DEPENDENTES DO MESMO, O COMANDO DELETE NÃO IRÁ FUNCIONAR
+-- REALIZAR UM SOFT DELETE (COLUNA DELETED)
 UPDATE
 	employees AS emp
 SET 
@@ -60,6 +79,25 @@ WHERE
 	)
 ;
 
+-- UTILIZANDO CTE
+WITH role_without_emp(id) AS (
+	SELECT
+		rl.id
+	FROM
+		roles AS rl
+	LEFT JOIN 
+		employees AS emp ON (rl.id = emp.role_id)
+	WHERE
+		emp.id IS NULL 
+)
+DELETE FROM
+	roles AS rl
+USING 
+	role_without_emp AS rwe
+WHERE 
+	rl.id = rwe.id
+;
+
 -- PT 2
 -- UTILIZAÇÃO DA VIEW 
 SELECT 
@@ -69,9 +107,14 @@ FROM
 
 -- UTILIZAÇÃO DA FUNÇÃO 
 SELECT 
-	 fnc_employees_check_salary(id)
+	fnc_employees_check_salary(id)
 FROM 
 	employees
+;
+
+-- OU 
+SELECT 
+	fnc_employees_check_salary(1) -- ID DO COLABORADOR
 ;
 
 -- FILTRAR OS COLABORADORES QUE ESTÃO COM O SALÁRIO INDEVIDO E AJUSTAR.
@@ -98,4 +141,10 @@ SELECT
   * 
 FROM 
   fix_salary(1.00::numeric)
+;
+
+-- OU 
+
+SELECT 
+	fix_salary(1.00::numeric)
 ;
